@@ -1,0 +1,48 @@
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- bean definitions here -->
+    <!--  -->
+    <bean id ="alien1" class="org.example.Alien" autowire="byName">
+        <property name="age" value="21"></property>
+<!--        <property name="com" ref="lap"></property>
+*adding autowire to bean definition tells spring to search for its properties "byName" for matching beans id in this xml
+*if we explicitlty mention property with ref, it will look there not to autowire
+*autowire: byType, searches types and matches beans from this xml; but if multiple beans can be candidate for that type it causes confusion
+so we can make primary bean to prevent confusioun
+lazy initiliazed bean, means it will only be created when we creat it; normally all beans mentioned
+in this file is created when we call new ClassPathXmlApplicationContext("spring.xml");
+scope=protoype ile lazy_init=true farkı, prototype da singleton değil istediğimiz zaman yaratabşliyoruz
+lazy init olanı yine istediğimiz zaman yaratabiliyoruz ama singleton
+
+-->
+
+<!--        <constructor-arg name="lap" ref="lap1"/>-->
+<!--        <constructor-arg name="age" value="21"/>-->
+    </bean>
+    <bean id ="alien2" class="org.example.Alien" scope="prototype">
+        <property name="com">
+<!--            here we introduce an inner bean so that only this alien can acces it, we dont want another beans to acces this -->
+            <bean id ="desktop" class="org.example.Desktop" lazy-init="true">
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="com" class="org.example.Laptop" primary="true">
+    </bean>
+
+    <bean id ="lap" class="org.example.Laptop">
+    </bean>
+
+    <bean id ="desktop2" class="org.example.Desktop" lazy-init="true">
+    </bean>
+
+
+
+
+
+</beans>
+
