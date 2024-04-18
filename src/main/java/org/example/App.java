@@ -1,6 +1,8 @@
 package org.example;
 
+import org.example.config.AppConfig;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
@@ -9,7 +11,34 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class App 
 {
-    public static void main( String[] args )
+
+
+    public static void main(String[] args) {
+      ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+       // Desktop dt = context.getBean("beast",Desktop.class);
+        //dt.compile();
+
+
+
+
+/*        Desktop dt = context.getBean(Desktop.class);
+        dt.compile();
+        Desktop dt1 = context.getBean(Desktop.class);
+        dt1.compile();
+
+*/
+
+        Alien obj1 = context.getBean(Alien.class);
+        System.out.println(obj1.getAge());
+        obj1.code();
+
+
+
+    }
+
+    // BELOW IS XML CONFIGURATION
+/*    public static void main( String[] args )
     {
         // appcontext is responsible for work with that ioc container
         // we can simply create alien object and run the method but we want spring to do the object creation for us
@@ -62,5 +91,5 @@ public class App
 
 
 
-    }
+    }*/
 }
